@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sample Client</title>
+</head>
+<body>
+    <script>
+        const getResponse = () => {
+            const eventSource = new EventSource('http://localhost:4000/response', {withCredentials: true});
+
+            eventSource.onmessage = function(event) {
+                console.log(event);
+                console.log('New :', event.data);
+            };
+
+            eventSource.addEventListener('CLOSE', function(event) {
+                console.log('Server is about to close the connection:', event.data);
+                eventSource.close();
+            });
+        }
+
+        const getConversation = () => {
+            fetch('http://localhost:4000/getConversation', {
+                credentials: "include"
+            })
+            .then(response => response.text())
+            .then(data => console.log(data));
+        }
+
+
+        const writeMessage = () => {
+            fetch('http://localhost:4000/writeMessage', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: 'would you hire Andy?',
+                }),
+                credentials: 'include',
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch((error) => console.error('Error:', error));
+        }
+
+        getConversation();
+        // writeMessage();
+        // getResponse();
+    </script>
+</body>
+</html>
