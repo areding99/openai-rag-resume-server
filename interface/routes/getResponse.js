@@ -38,7 +38,6 @@ const useGetResponseRoute = async (app) => {
             assistant_id: assistant.id,
           })
           .on("textDelta", (textDelta, snapshot) => {
-            console.log("textDelta", textDelta);
             res.write(
               `data: ${JSON.stringify({
                 textDelta,

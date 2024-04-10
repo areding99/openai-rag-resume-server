@@ -9,7 +9,7 @@ import useWriteMessageRoute from "./interface/routes/postMessage.js";
 const main = () => {
   // configure up express server
   const app = express();
-  app.use(cors({ origin: "http://127.0.0.1:5500", credentials: true }));
+  app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
   app.use(express.json());
   useSession(app);
 
@@ -24,7 +24,7 @@ const main = () => {
   useWriteMessageRoute(app);
 
   // start server
-  app.listen(4000, () => {
+  app.listen(process.env.PORT || 4000, () => {
     console.log("server started");
   });
 };
