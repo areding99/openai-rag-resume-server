@@ -5,7 +5,7 @@ import {
 } from "../../functional/gpt/threadUtils.js";
 
 const useGetConversationRoute = async (app) => {
-  app.get("/getConversation", async (req, res, next) => {
+  app.get("/api/getConversation", async (req, res, next) => {
     try {
       const threadId = req.session.thread_id;
 

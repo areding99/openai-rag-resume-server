@@ -7,7 +7,7 @@ import getOpenAIClient from "../../functional/gpt/getOpenAIClient.js";
 import getOrCreateAssistant from "../../functional/gpt/getOrCreateAssistant.js";
 
 const useGetResponseRoute = async (app) => {
-  app.get("/response", async (req, res, next) => {
+  app.get("/api/response", async (req, res, next) => {
     try {
       const threadId = req.session.thread_id;
 
