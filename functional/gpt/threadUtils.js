@@ -34,9 +34,16 @@ export const getFormattedThreadMessages = async (thread) => {
   const messages = await client.beta.threads.messages.list(thread.id);
 
   const formattedMessages = messages.data.reverse().map((message) => {
+    const content = message.content[0].text.value;
+    const annotations = message.content[0].text.annotations;
+
     return {
       role: message.role,
-      content: message.content[0].text.value,
+      content:
+        annotations.length === 0
+          ? content
+          : content.substring(0, annotations[0].start_index) +
+            content.substring(annotations[0].end_index),
     };
   });
 
