@@ -38,7 +38,11 @@ const useGetResponseRoute = async (app) => {
           .createAndStream(threadId, {
             assistant_id: assistant.id,
           })
-          .on("textDelta", (textDelta, snapshot) => {
+          .on("textDelta", (textDelta) => {
+            if (textDelta.annotations) {
+              return;
+            }
+
             res.write(
               `data: ${JSON.stringify({
                 textDelta,
