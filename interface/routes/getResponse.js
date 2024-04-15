@@ -39,7 +39,7 @@ const useGetResponseRoute = async (app) => {
             assistant_id: assistant.id,
           })
           .on("textDelta", (textDelta) => {
-            if (textDelta.annotations) {
+            if (textDelta.annotations && textDelta.annotations.length > 0) {
               return;
             }
 
